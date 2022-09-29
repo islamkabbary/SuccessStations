@@ -50,11 +50,11 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="flex align-items-center list-user-action">
-                                            <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top"
+                                            {{-- <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top"
                                                 title="{{ trans('admin.edit') }}" data-original-title="Edit"
                                                 href="{{ route('ads.edit', $item->id) }}">
                                                 <i class="ri-pencil-line"></i>
-                                            </a>
+                                            </a> --}}
                                             <a class="iq-bg-primary" href="#" data-toggle="modal"
                                                 data-target="#delmodel{{ $item->id }}">
                                                 <i class="ri-delete-bin-line" data-toggle="tooltip" data-placement="top"
