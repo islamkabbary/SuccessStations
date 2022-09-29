@@ -6,10 +6,11 @@ use App\Helpers\FileHelper;
 use App\Http\Traits\CrudTrait;
 use App\Http\Traits\MainTrait;
 use App\Http\Traits\ResponseTraits;
+use App\Models\Country;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceRepository
+class AdsRepository
 {
     use CrudTrait, ResponseTraits, MainTrait;
 
@@ -32,26 +33,25 @@ class ServiceRepository
 
     public function store($request)
     {
-        $data = $request->except('_method', '_token', 'logo', 'country_id');
-        if ($request->hasFile('logo')) {
-            $image_path = FileHelper::upload_file('services', $request->logo);
-            $data['logo'] = $image_path;
+        $data = $request->except('_method', '_token', 'country_id', 'service_id');
+        $countries = Country::whereIn('id', $request->country_id)->get();
+        $services = Service::whereIn('id', $request->service_id)->pluck('id');
+        foreach ($countries as $country) {
+            foreach ($services as $serv) {
+                if ($country->services->where('id', $serv)->first() == null) {
+                    $sr = Service::find($serv);
+                    session()->flash('failed', $country->name . trans("admin.has_no_service") . $sr->name);
+                    return redirect()->back();
+                }
+            }
         }
         return $this->storeTrait($this->model, $data);
     }
 
     public function update($id, $request)
     {
-        $data = $request->except('_method', '_token', 'logo', 'country_id');
-        if ($request->hasFile('logo')) {
-            $logo = Service::find($id)->logo;
-            if ($logo) {
-                $image_path = FileHelper::update_file('services', $request->logo, Service::find($id)->logo);
-            } else {
-                $image_path = FileHelper::upload_file('services', $request->logo);
-            }
-            $data['logo'] = $image_path;
-        }
+        $data = $request->except('_method', '_token', 'country_id');
+        $category = $this->model->where('id', $id)->first();
         return $this->updateTrait($this->model, $id, $data);
     }
 

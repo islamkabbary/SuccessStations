@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\City;
-use App\Models\Company;
-use App\Models\Category;
-use App\Services\CategoryService;
-use Illuminate\Support\Facades\DB;
+use App\Models\Ads;
+use App\Services\AdsService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\AdsRequest;
+use App\Models\Country;
+use App\Models\Service;
 
-class CategoryController extends Controller
+class AdsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,15 +18,15 @@ class CategoryController extends Controller
      */
 
     protected $Service;
-    public function __construct(CategoryService $CategorySer)
+    public function __construct(AdsService $adsSer)
     {
-        $this->Service = $CategorySer;
+        $this->Service = $adsSer;
     }
 
     public function index()
     {
-        $categories = $this->Service->index();
-        return view('admin.categories.index' , compact( 'categories'));
+        $ads = $this->Service->index();
+        return view('admin.ads.index' , compact( 'ads'));
     }
 
     /**
@@ -37,9 +36,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $cities = City::all()->pluck('name', 'id');
-        $companies = Company::all()->pluck('name', 'id');
-        return view('admin.categories.insert', compact( 'cities','companies'));
+        $countries = Country::all()->pluck('name', 'id');
+        $services = Service::all()->pluck('name', 'id');
+        return view('admin.ads.insert', compact('countries','services'));
     }
 
     /**
@@ -48,12 +47,16 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(AdsRequest $request)
     {
-        $category = $this->Service->store($request);
-        $category->companies()->sync($request->company_id, false);
+        $Ads = $this->Service->store($request);
+        if(session()->has('failed')){
+            return redirect()->back();
+        }
+        $Ads->countries()->attach($request->country_id);
+        $Ads->services()->attach($request->service_id);
         session()->flash('success' , trans('admin.add-message'));
-        return redirect()->route('streets.index');
+        return redirect()->route('ads.index');
     }
 
     /**
@@ -62,10 +65,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Ads $Ads)
     {
-        $data = $this->Service->show($category->id);
-        return view('admin.categories.show' , compact('data'));
+        $data = $this->Service->show($Ads->id);
+        return view('admin.ads.show' , compact('data'));
     }
 
     /**
@@ -77,9 +80,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $data = $this->Service->show($id);
-        $cities = City::all()->pluck('name', 'id');
-        $companies = Company::all()->pluck('name', 'id');
-        return view('admin.categories.edit' , compact('data','cities','companies'));
+        // $cities = City::all()->pluck('name', 'id');
+        // $companies = Company::all()->pluck('name', 'id');
+        return view('admin.ads.edit' , compact('data','cities','companies'));
     }
 
     /**
@@ -89,10 +92,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(AdsRequest $request, $id)
     {
-        $category = $this->Service->update($id , $request);
-        $category->companies()->sync($request->company_id, false);
+        $Ads = $this->Service->update($id , $request);
+        $Ads->companies()->sync($request->company_id, false);
         session()->flash('success' , trans('admin.edit-message'));
         return redirect()->route('streets.index');
     }

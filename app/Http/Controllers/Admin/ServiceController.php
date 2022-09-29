@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Services\ServiceService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
+
 class ServiceController extends Controller
 {
     /**
@@ -24,7 +25,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = $this->Service->index();
-        return view('admin.services.index' , compact( 'services'));
+        return view('admin.services.index', compact('services'));
     }
 
     /**
@@ -35,7 +36,7 @@ class ServiceController extends Controller
     public function create()
     {
         $country = Country::all()->pluck('name', 'id');
-        return view('admin.services.insert',compact('country'));
+        return view('admin.services.insert', compact('country'));
     }
 
     /**
@@ -47,7 +48,8 @@ class ServiceController extends Controller
     public function store(ServiceRequest $request)
     {
         $service = $this->Service->store($request);
-        session()->flash('success' , trans('admin.add-message'));
+        $service->countries()->attach($request->country_id);
+        session()->flash('success', trans('admin.add-message'));
         return redirect()->route('services.index');
     }
 
@@ -60,8 +62,8 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $data = $this->Service->show($service->id);
-        $country = Country::all()->pluck('name' , 'id');
-        return view('admin.services.edit' , compact('data','country'));
+        $country = Country::all()->pluck('name', 'id');
+        return view('admin.services.edit', compact('data', 'country'));
     }
 
     /**
@@ -73,8 +75,11 @@ class ServiceController extends Controller
      */
     public function update(ServiceRequest $request, Service $service)
     {
-        $this->Service->update($service->id , $request);
-        session()->flash('success' , trans('admin.edit-message'));
+        $serv = $this->Service->update($service->id, $request);
+        if ($request->country_id[0] != null) {
+            $serv->countries()->sync($request->country_id, false);
+        }
+        session()->flash('success', trans('admin.edit-message'));
         return redirect()->route('services.index');
     }
 
@@ -87,7 +92,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $this->Service->destroy($service->id);
-        session()->flash('success' , trans('admin.delete-message'));
+        session()->flash('success', trans('admin.delete-message'));
         return redirect()->route('services.index');
     }
 }

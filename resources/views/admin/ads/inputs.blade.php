@@ -5,9 +5,9 @@
                 <div class="iq-header-title">
                     <h4 class="card-title">
                         @if (isset($data))
-                            {{ trans('admin.edit-service') }}
+                            {{ trans('admin.edit-ads') }}
                         @else
-                            {{ trans('admin.add-service') }}
+                            {{ trans('admin.add-ads') }}
                         @endif
                     </h4>
                 </div>
@@ -18,16 +18,16 @@
                 <form>
                     <div class="form-group text-center">
                         <div class="add-img-user profile-img-edit">
-                            @if (isset($data) && $data->logo != null)
-                                <img class="profile-pic img-fluid" src="{{ asset('storage/' . $data->logo) }}"
+                            @if (isset($data) && $data->image != null)
+                                <img class="profile-pic img-fluid" src="{{ asset('storage/' . $data->image) }}"
                                     alt="profile-pic">
                             @else
                                 <img class="profile-pic img-fluid" src="{{ asset('assets/imgs/avatar.png') }}"
                                     alt="profile-pic">
                             @endif
                             <div class="p-image">
-                                <a href="#" class="upload-button btn iq-bg-primary">{{ trans('admin.logo') }}</a>
-                                <input name="logo" class="file-upload" type="file" accept="logo/*">
+                                <a href="#" class="upload-button btn iq-bg-primary">{{ trans('admin.image') }}</a>
+                                <input name="image" class="file-upload" type="file" accept="image/*">
                             </div>
                         </div>
                     </div>
@@ -39,30 +39,49 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title"> {{ trans('admin.service-info') }}</h4>
+                    <h4 class="card-title"> {{ trans('admin.ads-info') }}</h4>
                 </div>
             </div>
             <div class="iq-card-body">
+                @if (session()->has('failed'))
+                    <div class="alert text-white bg-primary" role="alert">
+                        <div class="iq-alert-text">{{ session()->get('failed') }}</div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div>
+                @endif
                 @include('admin.include.messages_errors')
                 <div class="new-user-info">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            {!! Form::label('name', trans('admin.name')) !!}
-                            <span class="asters">*</span>
-                            {!! Form::text('name', $data->name ?? old('name'), [
-                                'class' => 'form-control',
-                                'id' => 'name',
-                                'placeholder' => trans('admin.name'),
-                            ]) !!}
-                        </div>
-                        <div class="form-group col-md-6">
                             {!! Form::label('country_id', trans('admin.country')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('country_id[]', $country, $data->country_id ?? old('country_id'), [
+                            {!! Form::select('country_id[]', $countries, $data->country_id ?? old('country_id'), [
                                 'class' => 'form-control',
                                 'id' => 'country_id',
                                 'multiple',
                                 'placeholder' => trans('admin.country'),
+                            ]) !!}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('service_id', trans('admin.services')) !!}
+                            <span class="asters">*</span>
+                            {!! Form::select('service_id[]', $services, $data->service_id ?? old('service_id'), [
+                                'class' => 'form-control',
+                                'id' => 'service_id',
+                                'multiple',
+                                'placeholder' => trans('admin.services'),
+                            ]) !!}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {!! Form::label('body', trans('admin.body')) !!}
+                            <span class="asters">*</span>
+                            {!! Form::textarea('body', $data->body ?? old('body'), [
+                                'class' => 'form-control',
+                                'id' => 'body',
+                                'rows' => '3',
+                                'placeholder' => trans('admin.body'),
                             ]) !!}
                         </div>
                         <div class="col-md-12">

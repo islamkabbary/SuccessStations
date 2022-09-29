@@ -23,15 +23,18 @@ class ServiceRequest extends AbstractFormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|string',
-            'logo' => 'sometimes|nullable|image|mimes:png,jpg,svg,jpeg,gif',
-            'country_id' => 'required|exists:countries,id',
+            'logo' => 'nullable|image|max:2048',
+            'country_id' => "required|array",
+            'country_id' => 'exists:countries,id',
         ];
+
         if (request('_method') == 'PUT') {
             $rules['name'] = 'sometimes|string';
             $rules['logo'] = 'sometimes|nullable|image|mimes:png,jpg,svg,jpeg,gif';
-            $rules['country_id'] = 'sometimes|exists:countries,id';
+            $rules['country_id'] = 'sometimes';
+            // $rules['country_id'] = 'sometimes|exists:countries,id';
         }
         return $rules;
     }

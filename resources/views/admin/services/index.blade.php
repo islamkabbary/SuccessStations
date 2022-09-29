@@ -28,7 +28,6 @@
                     <tr>
                         <th>#</th>
                         <th>{{trans('admin.name')}}</th>
-                        <th>{{trans('admin.country')}}</th>
                         <th>{{trans('admin.logo')}}</th>
                         <th>{{trans('admin.actions')}}</th>
                     </tr>
@@ -38,7 +37,6 @@
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>{{$item->name}}</td>
-                                <td>{{$item->country->name}}</td>
                                 <td>
                                     @if ($item->logo != null)
                                         <img src="{{ asset('storage/' . $item->logo) }}"

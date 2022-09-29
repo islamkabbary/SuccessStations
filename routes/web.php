@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\AdsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::resource('countries', CountryController::class);
     Route::resource('universities', UniversityController::class);
     Route::resource('services', ServiceController::class);
+    Route::resource('ads', AdsController::class);
     
     Route::get('settings', [SettingController::class, 'settings'])->name('settings');
     Route::post('settings/update', [SettingController::class, 'update'])->name('settings.update');
@@ -44,7 +46,6 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::get('update/password', [UserController::class, 'updatePasswordView'])->name('update.password');
     Route::post('update/password/post', [UserController::class, 'updatePassword'])->name('update.password.post');
 
-    // Route::resource('streets', CategoryController::class);
     // Route::resource('cities', CityController::class);
     // Route::resource('markets', MarketController::class);
     // Route::resource('products', ProductController::class);

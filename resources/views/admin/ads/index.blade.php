@@ -1,17 +1,17 @@
 @extends('admin.layout.base')
-@section('title', trans('admin.Streets'))
+@section('title', trans('admin.ads'))
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="iq-card">
-                <a href="{{route('streets.create')}}" class="btn btn-text-primary font-weight-bold btn-fixed" data-palcement="top" data-toggle="tooltip" title="{{trans('admin.add-street')}}">
+                <a href="{{ route('ads.create') }}" class="btn btn-text-primary font-weight-bold btn-fixed"
+                    data-palcement="top" data-toggle="tooltip" title="{{ trans('admin.add-ads') }}">
                     <i class="fa fa-plus"></i>
                 </a>
                 <div class="iq-card-header d-flex justify-content-between">
                     <div class="iq-header-title">
                         <h4 class="card-title">
-                            {{ trans('admin.Streets') }}
-                            {{-- Streets --}}
+                            {{ trans('admin.ads') }}
                         </h4>
                     </div>
                 </div>
@@ -29,28 +29,30 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('admin.name') }}</th>
-                                <th>{{ trans('admin.is_show') }}</th>
-                                <th>{{ trans('admin.color') }}</th>
-                                <th>{{ trans('admin.city') }}</th>
+                                <th>{{ trans('admin.body') }}</th>
+                                <th>{{ trans('admin.image') }}</th>
                                 <th>{{ trans('admin.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $index => $item)
+                            @foreach ($ads as $index => $item)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->body }}</td>
                                     <td>
-                                        {{ $item->is_show == 1 ? trans('admin.yes') : trans('admin.no') }}
+                                        @if ($item->image != null)
+                                            <img src="{{ asset('storage/' . $item->image) }}"
+                                                style="width:40px;height:40px;" />
+                                        @else
+                                            <img src="{{ asset('assets/imgs/avatar.png') }}"
+                                                style="width:40px;height:40px;" />
+                                        @endif
                                     </td>
-                                    <td>{{ $item->color }}</td>
-                                    <td>{{ $item->city ? $item->city->name : null }}</td>
                                     <td class="text-center">
                                         <div class="flex align-items-center list-user-action">
                                             <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top"
                                                 title="{{ trans('admin.edit') }}" data-original-title="Edit"
-                                                href="{{ route('streets.edit', $item->id) }}">
+                                                href="{{ route('ads.edit', $item->id) }}">
                                                 <i class="ri-pencil-line"></i>
                                             </a>
                                             <a class="iq-bg-primary" href="#" data-toggle="modal"
@@ -80,11 +82,11 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">{{ __('admin.cancel') }}</button>
-                                                            {!! Form::open(['method'=>'delete' , 'route'=>['streets.destroy' ,$item->id] , 'class'=>'d-inline']) !!}
-                                                            <button type="submit" class="btn btn-primary border-0" data-toggle="tooltip"
-                                                                    data-placement="top" title=""
-                                                                    data-original-title="{{trans('admin.delete')}}">
-                                                                    {{trans('admin.delete')}}
+                                                            {!! Form::open(['method' => 'delete', 'route' => ['ads.destroy', $item->id], 'class' => 'd-inline']) !!}
+                                                            <button type="submit" class="btn btn-primary border-0"
+                                                                data-toggle="tooltip" data-placement="top" title=""
+                                                                data-original-title="{{ trans('admin.delete') }}">
+                                                                {{ trans('admin.delete') }}
                                                             </button>
                                                             {!! Form::close() !!}
                                                         </div>

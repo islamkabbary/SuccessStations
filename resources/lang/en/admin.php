@@ -293,6 +293,11 @@ return [
     'add-university' =>'add-university',
     'university' =>'university',
     'whatsapp' =>'whatsapp',
-    "I Can't" => "I Can't"
+    "I Can't" => "I Can't",
+    'ads' => 'ads',
+    'body' => 'body',
+    'add-ads' => 'add ads',
+    'edit-ads' => 'edit ads',
+    'ads-info' => 'ads information',
 ];
 

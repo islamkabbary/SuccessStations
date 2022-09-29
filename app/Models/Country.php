@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Country extends Model
 {
@@ -14,7 +15,7 @@ class Country extends Model
     protected $hidden = ['name_ar', 'name_en', 'created_at', 'updated_at', 'deleted_at'];
     protected $date = ['deleted_at'];
     protected $appends = ['name'];
-    
+
     public function getNameAttribute()
     {
         if (app()->isLocale('ar')) {
@@ -34,8 +35,8 @@ class Country extends Model
         return $this->hasMany(User::class);
     }
 
-    public function services()
+    public function services(): BelongsToMany
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsToMany(Service::class, 'service_countries');
     }
 }

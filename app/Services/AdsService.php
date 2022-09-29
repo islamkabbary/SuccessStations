@@ -2,16 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\Category;
-use App\Repositories\CategoryRepository;
+use App\Models\Ads;
+use App\Repositories\AdsRepository;
 
-class CategoryService
+class AdsService
 {
 
     protected $repo;
-    public function __construct(Category $repo)
+    public function __construct(Ads $repo)
     {
-        $this->repo = new CategoryRepository($repo);
+        $this->repo = new AdsRepository($repo);
     }
 
     public function index()

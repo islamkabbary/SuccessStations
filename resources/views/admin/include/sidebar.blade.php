@@ -64,15 +64,16 @@
                     </a>
                 </li>
 
-                {{-- @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
+                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
                     <li>
-                        <a href="{{ route('streets.index') }}" class="iq-waves-effect">
+                        <a href="{{ route('ads.index') }}" class="iq-waves-effect">
                             <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                            <span> {{ trans('admin.Streets') }} </span>
+                            <span> {{ trans('admin.ads') }} </span>
                         </a>
                     </li>
                 @endif
 
+                {{-- 
                 @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
                     <li>
                         <a href="{{ route('markets.index') }}" class="iq-waves-effect">
