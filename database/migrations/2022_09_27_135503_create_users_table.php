@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('verify_phone')->default(0);
             $table->boolean('verify_email')->default(0);
             $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('membership_id')->nullable()->constrained('memberships')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('code')->nullable();
             $table->boolean('is_active')->default(True);
             $table->text('image')->nullable();

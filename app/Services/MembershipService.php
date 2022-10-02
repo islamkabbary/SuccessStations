@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Ads;
+use App\Models\Membership;
 use App\Repositories\AdsRepository;
 
-class AdsService
+class MembershipService
 {
 
     protected $repo;
-    public function __construct(Ads $repo)
+    public function __construct(Membership $repo)
     {
         $this->repo = new AdsRepository($repo);
     }
@@ -28,9 +28,9 @@ class AdsService
         return $this->repo->store($request);
     }
 
-    // public function update($id, $request){
-    //     return $this->repo->update($id,$request);
-    // }
+    public function update($id, $request){
+        return $this->repo->update($id,$request);
+    }
 
     public function destroy($id)
     {

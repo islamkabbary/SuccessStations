@@ -303,5 +303,15 @@ return [
     'date_expiry' => 'date expiry',
     'add-settings' => 'add settings',
     'edit-settings' => 'edit settings',
+    'memberships' => 'memberships',
+    'add-memberships' => 'add memberships',
+    'name_membership' => 'name membership',
+    'membership_value' => 'membership value',
+    'eligibility_type' => 'eligibility type',
+    'memberships-info' => 'memberships info',
+    'month' => 'month',
+    'three_months' => 'three_months',
+    'six_months' => 'six_months',
+    'year' => 'year',
 ];
 

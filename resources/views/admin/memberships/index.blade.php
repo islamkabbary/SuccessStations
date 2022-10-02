@@ -1,19 +1,20 @@
-<div>
+@extends('admin.layout.base')
+@section('title', trans('admin.memberships'))
+@section('content')
     <div class="row">
         <div class="col-md-12">
-            <!--begin::Card-->
             <div class="iq-card">
+                <a href="{{ route('memberships.create') }}" class="btn btn-text-primary font-weight-bold btn-fixed"
+                    data-palcement="top" data-toggle="tooltip" title="{{ trans('admin.add-memberships') }}">
+                    <i class="fa fa-plus"></i>
+                </a>
                 <div class="iq-card-header d-flex justify-content-between">
                     <div class="iq-header-title">
                         <h4 class="card-title">
-                            {{ trans('admin.users') }}
+                            {{ trans('admin.memberships') }}
                         </h4>
                     </div>
                 </div>
-                <a href="{{ route('users.create') }}" class="btn btn-text-primary font-weight-bold btn-fixed"
-                    data-palcement="top" data-toggle="tooltip" title="{{ trans('admin.add-user') }}">
-                    <i class="fa fa-plus"></i>
-                </a>
                 <div class="iq-card-body">
                     @if (session()->has('success'))
                         <div class="alert text-white bg-primary" role="alert">
@@ -28,48 +29,26 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('admin.name') }}</th>
-                                <th>{{ trans('admin.email') }}</th>
-                                <th>{{ trans('admin.phone') }}</th>
-                                <th>{{ trans('admin.country') }}</th>
-                                <th>{{ trans('admin.type') }}</th>
-                                {{-- <th>{{ trans('admin.status') }}</th> --}}
-                                <th>{{ trans('admin.image') }}</th>
+                                <th>{{ trans('admin.name_membership') }}</th>
+                                <th>{{ trans('admin.service') }}</th>
+                                <th>{{ trans('admin.membership_value') }}</th>
+                                <th>{{ trans('admin.eligibility_type') }}</th>
                                 <th>{{ trans('admin.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $index => $item)
+                            @foreach ($memberships as $index => $item)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->country->name ?? null }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    {{-- @if ($item->is_active == 1)
-                                        <td><button wire:click="status({{ $item->id }})"
-                                                class="text-loght btn btn-danger btn-round"
-                                                title="Active {{ $item->name }}"> InActive </button></td>
-                                    @else
-                                        <td><button wire:click="status({{ $item->id }})"
-                                                class="text-loght btn btn-success btn-round"
-                                                title="InActive {{ $item->name }}"> Active </button></td>
-                                    @endif --}}
-                                    <td>
-                                        @if ($item->image != null)
-                                            <img src="{{ asset('storage/' . $item->image) }}"
-                                                style="width:40px;height:40px;" />
-                                        @else
-                                            <img src="{{ asset('assets/imgs/avatar.png') }}"
-                                                style="width:40px;height:40px;" />
-                                        @endif
-                                    </td>
+                                    <td>{{ $item->name_membership }}</td>
+                                    <td>{{ $item->service->name }}</td>
+                                    <td>{{ $item->membership_value }}</td>
+                                    <td>{{ $item->eligibility_type }}</td>
                                     <td class="text-center">
                                         <div class="flex align-items-center list-user-action">
                                             <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top"
                                                 title="{{ trans('admin.edit') }}" data-original-title="Edit"
-                                                href="{{ route('users.edit', $item->id) }}">
+                                                href="{{ route('memberships.edit', $item->id) }}">
                                                 <i class="ri-pencil-line"></i>
                                             </a>
                                             <a class="iq-bg-primary" href="#" data-toggle="modal"
@@ -84,8 +63,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="delmodelLabel{{ $item->id }}">
+                                                            <h5 class="modal-title" id="delmodelLabel{{ $item->id }}">
                                                                 {{ __('admin.delete') }}</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
@@ -100,10 +78,9 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">{{ __('admin.cancel') }}</button>
-                                                            {!! Form::open(['method' => 'delete', 'route' => ['users.destroy', $item->id], 'class' => 'd-inline']) !!}
+                                                            {!! Form::open(['method' => 'delete', 'route' => ['memberships.destroy', $item->id], 'class' => 'd-inline']) !!}
                                                             <button type="submit" class="btn btn-primary border-0"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title=""
+                                                                data-toggle="tooltip" data-placement="top" title=""
                                                                 data-original-title="{{ trans('admin.delete') }}">
                                                                 {{ trans('admin.delete') }}
                                                             </button>
@@ -122,4 +99,4 @@
             </div>
         </div>
     </div>
-</div>
+@endsection

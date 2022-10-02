@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\UniversityController;
 
 /*
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::resource('ads', AdsController::class);
     Route::resource('settings', SettingController::class);
     Route::get('settings/change_lang/{lang}', [SettingController::class, 'changeLang'])->name('settings.changelang');
+    Route::resource('memberships', MembershipController::class);
     
     Route::get('user/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::put('user/profile/update', [UserController::class, 'updateUserProfile'])->name('user.profile.update');

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'type',
         'image',
         'password',
+        'membership_id',
     ];
 
     /**
@@ -55,5 +56,15 @@ class User extends Authenticatable
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get the membership that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function membership(): BelongsTo
+    {
+        return $this->belongsTo(Membership::class);
     }
 }

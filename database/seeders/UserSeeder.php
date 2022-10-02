@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'phone'=>'01201891564',
             'type'=>'super_admin',
             'password'=>Hash::make(123456),
+            'country_id'=>1
         ]);
     }
 }

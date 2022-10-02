@@ -51,4 +51,9 @@ class Country extends Model
     {
         return $this->belongsTo(Setting::class);
     }
+
+    public function memberships(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'membership_countries');
+    }
 }
