@@ -10,7 +10,7 @@ class Ads extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['body', 'image'];
+    protected $fillable = ['body', 'image','date_publication','date_expiry'];
 
     public function countries(): BelongsToMany
     {

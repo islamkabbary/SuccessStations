@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->longText('body');
             $table->longText('image');
+            $table->date('date_publication');
+            $table->date('date_expiry');
             $table->timestamps();
         });
     }

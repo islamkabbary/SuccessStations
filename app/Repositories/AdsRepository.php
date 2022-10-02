@@ -33,7 +33,7 @@ class AdsRepository
 
     public function store($request)
     {
-        $data = $request->except('_method', '_token', 'country_id', 'service_id');
+        $data = $request->except('_method', '_token', 'country_id', 'service_id', 'image');
         $countries = Country::whereIn('id', $request->country_id)->get();
         $services = Service::whereIn('id', $request->service_id)->pluck('id');
         foreach ($countries as $country) {
@@ -45,14 +45,11 @@ class AdsRepository
                 }
             }
         }
+        if ($request->hasFile('image')) {
+            $image_path = FileHelper::upload_file('brands', $request->image);
+            $data['image'] = $image_path;
+        }
         return $this->storeTrait($this->model, $data);
-    }
-
-    public function update($id, $request)
-    {
-        $data = $request->except('_method', '_token', 'country_id');
-        $category = $this->model->where('id', $id)->first();
-        return $this->updateTrait($this->model, $id, $data);
     }
 
     public function destroy($id)

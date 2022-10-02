@@ -22,15 +22,19 @@ class AdsRequest extends AbstractFormRequest
     public function rules()
     {
         $rules = [
-            'body'=>'required|string',
-            'image'=>'required|image',
+            'body' => 'required|string',
+            'image' => 'required|image',
+            'date_publication' => 'required|date|after:yesterday',
+            'date_expiry' => 'required|date|after:date_publication',
             'country_id' => 'required|array',
-            'country_id'=>'exists:countries,id',
+            'country_id' => 'exists:countries,id',
             'service_id' => 'required|array',
-            'service_id'=>'exists:services,id',
+            'service_id' => 'exists:services,id',
         ];
-        
-        if(request('_method' )== 'PUT'){
+
+        if (request('_method') == 'PUT') {
+            $rules['date_publication'] = 'sometimes|date|date|after:yesterday';
+            $rules['date_expiry'] = 'sometimes|date|after:date_publication';
             $rules['country_id'] = 'sometimes|array';
             $rules['country_id'] = 'exists:countries,id';
             $rules['service_id'] = 'sometimes|array';

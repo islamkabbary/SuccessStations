@@ -305,5 +305,10 @@ return [
     'edit-ads' => 'تعديل الاعلان',
     'ads-info' => 'بيانات الاعلان',
     'body' => 'الاعلان',
-    'has_no_service' => 'ليس لديها خدمة '
+    'has_no_service' => 'ليس لديها خدمة ',
+    'date_publication' => 'تاريخ النشر',
+    'date_expiry' => 'تاريخ النهاية',
+    'add-settings' => 'اضافة الاعدادات',
+    'settings-info' => 'بيانات الاعدادات',
+    'edit-settings' => 'تعديل الاعدادات',
 ];

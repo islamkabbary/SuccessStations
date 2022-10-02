@@ -37,10 +37,9 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::resource('universities', UniversityController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('ads', AdsController::class);
-    
-    Route::get('settings', [SettingController::class, 'settings'])->name('settings');
-    Route::post('settings/update', [SettingController::class, 'update'])->name('settings.update');
+    Route::resource('settings', SettingController::class);
     Route::get('settings/change_lang/{lang}', [SettingController::class, 'changeLang'])->name('settings.changelang');
+    
     Route::get('user/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::put('user/profile/update', [UserController::class, 'updateUserProfile'])->name('user.profile.update');
     Route::get('update/password', [UserController::class, 'updatePasswordView'])->name('update.password');

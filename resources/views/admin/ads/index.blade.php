@@ -31,6 +31,8 @@
                                 <th>#</th>
                                 <th>{{ trans('admin.body') }}</th>
                                 <th>{{ trans('admin.image') }}</th>
+                                <th>{{ trans('admin.date_publication') }}</th>
+                                <th>{{ trans('admin.date_expiry') }}</th>
                                 <th>{{ trans('admin.actions') }}</th>
                             </tr>
                         </thead>
@@ -48,6 +50,8 @@
                                                 style="width:40px;height:40px;" />
                                         @endif
                                     </td>
+                                    <td>{{ $item->date_publication }}</td>
+                                    <td>{{ $item->date_expiry }}</td>
                                     <td class="text-center">
                                         <div class="flex align-items-center list-user-action">
                                             {{-- <a class="iq-bg-primary" data-toggle="tooltip" data-placement="top"

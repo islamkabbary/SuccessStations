@@ -26,10 +26,11 @@ class SettingRequest extends FormRequest
         return [
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'whatsapp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'terms' => 'sometimes|nullable|string',
-            'policy' => 'sometimes|nullable|string',
-            'advertising' => 'sometimes|nullable|string',
-            'country_id' => 'required|unique:settings,country_id|exists:countries,id',
+            'terms' => 'required|nullable|string',
+            'policy' => 'required|nullable|string',
+            'advertising' => 'required|nullable|string',
+            'country_id' => 'required|array',
+            'country_id' => 'required|exists:countries,id',
         ];
     }
     public function messages()

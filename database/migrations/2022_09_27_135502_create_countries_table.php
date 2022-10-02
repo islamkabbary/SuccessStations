@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('short_code')->nullable();
             $table->boolean('status')->default(True);
             $table->text('logo')->nullable();
+            $table->foreignId('setting_id')->nullable()->constrained('settings')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

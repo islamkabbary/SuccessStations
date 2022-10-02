@@ -299,5 +299,9 @@ return [
     'add-ads' => 'add ads',
     'edit-ads' => 'edit ads',
     'ads-info' => 'ads information',
+    'date_publication' => 'date publication',
+    'date_expiry' => 'date expiry',
+    'add-settings' => 'add settings',
+    'edit-settings' => 'edit settings',
 ];
 

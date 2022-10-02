@@ -6,20 +6,34 @@ use App\Models\Setting;
 use App\Repositories\SettingRepository;
 class SettingService
 {
-    protected $SettingRepository;
-    public function __construct(Setting $SettingRep)
+
+    protected $repo;
+    public function __construct(Setting $repo)
     {
-        $this->SettingRepository = new SettingRepository($SettingRep);
+        $this->repo = new SettingRepository($repo);
     }
 
-    public function store($request)
+    public function index()
     {
-        return $this->SettingRepository->store($request);
+        return $this->repo->index();
     }
 
-    public function getSettingData($colum, $lang = null)
+    public function show($id)
     {
-        $data = $this->SettingRepository->getSettingData($colum, $lang);
-        return $data;
+        return $this->repo->show($id);
     }
+
+    public function store($request){
+        return $this->repo->store($request);
+    }
+
+    public function update($id, $request){
+        return $this->repo->update($id,$request);
+    }
+
+    public function destroy($id)
+    {
+        return $this->repo->destroy($id);
+    }
+
 }

@@ -74,6 +74,16 @@
                                 'placeholder' => trans('admin.services'),
                             ]) !!}
                         </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('date_publication' , trans('admin.date_publication')) !!}
+                            <span class="asters">*</span>
+                            {!! Form::date('date_publication' ,$data->date_publication ?? old('date_publication') ,['class'=>'form-control' , 'id'=>'date_publication' , 'placeholder'=>trans('admin.date_publication')]) !!}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {!! Form::label('date_expiry' , trans('admin.date_expiry')) !!}
+                            <span class="asters">*</span>
+                            {!! Form::date('date_expiry' ,$data->date_expiry ?? old('date_expiry') ,['class'=>'form-control' , 'id'=>'date_expiry' , 'placeholder'=>trans('admin.date_expiry')]) !!}
+                        </div>
                         <div class="form-group col-md-12">
                             {!! Form::label('body', trans('admin.body')) !!}
                             <span class="asters">*</span>

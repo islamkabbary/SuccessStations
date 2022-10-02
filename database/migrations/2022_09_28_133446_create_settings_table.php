@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('terms');
             $table->string('policy');
             $table->string('advertising');
-            $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
