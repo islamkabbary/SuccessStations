@@ -9,7 +9,7 @@ class UserComponent extends Component
 {
     public function render()
     {
-        $data = User::orderBy('id', 'desc')->get();
+        $data = User::where('type','admin')->orderBy('id', 'desc')->get();
         return view('livewire.user-component', compact('data'));
     }
 

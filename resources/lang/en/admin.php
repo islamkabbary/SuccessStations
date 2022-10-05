@@ -313,5 +313,11 @@ return [
     'three_months' => 'three_months',
     'six_months' => 'six_months',
     'year' => 'year',
+    'Discount_has_been_added' => 'Discount has been added',
+    'add-providers' => 'add-providers',
+    'edit-providers' => 'edit-providers',
+    'fac' => 'Facebook',
+    'ins' => 'Instagram',
+    'snap' => 'Snap Chat',
 ];
 

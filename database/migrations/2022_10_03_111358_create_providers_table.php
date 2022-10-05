@@ -13,27 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->unique();
+            $table->string('name_place');
+            $table->string('location');
             $table->string('phone')->unique();
+            $table->boolean('show_phone')->default(0);
+            $table->string('whatsapp')->unique();
+            $table->boolean('show_whatsapp')->default(0);
             $table->string('password')->nullable();
-            $table->enum('type', ['super_admin', 'admin', 'student'])->default('student')->nullable();
-            $table->boolean('verify_phone')->default(0);
-            $table->boolean('verify_email')->default(0);
-            $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('membership_id')->nullable()->constrained('memberships')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('code')->nullable();
             $table->boolean('is_active')->default(True);
-            $table->text('image')->nullable();
             $table->string('lang')->default('ar');
-            $table->integer('age')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->text('image')->nullable();
+            $table->longText('fac')->nullable();
+            $table->longText('ins')->nullable();
+            $table->longText('snap')->nullable();
+            $table->boolean('admin_approve')->default(0);
             $table->longText('fcm_token')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -45,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('providers');
     }
 };

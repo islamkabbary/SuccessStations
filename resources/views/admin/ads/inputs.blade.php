@@ -57,7 +57,7 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('country_id', trans('admin.country')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('country_id[]', $countries, $data->country_id ?? old('country_id'), [
+                            {!! Form::select('country_id[]', $countries, $data->countries?? old('country_id'), [
                                 'class' => 'form-control',
                                 'id' => 'country_id',
                                 'multiple',
@@ -67,7 +67,7 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('service_id', trans('admin.services')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('service_id[]', $services, $data->service_id ?? old('service_id'), [
+                            {!! Form::select('service_id[]', $services, $data->services ?? old('service_id'), [
                                 'class' => 'form-control',
                                 'id' => 'service_id',
                                 'multiple',

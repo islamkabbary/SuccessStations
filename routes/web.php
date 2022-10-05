@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\UniversityController;
 
@@ -34,6 +36,8 @@ Route::get('terms', [SettingController::class, 'getTerms'])->name('terms');
 Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('users', UserController::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('providers', ProviderController::class);
     Route::resource('countries', CountryController::class);
     Route::resource('universities', UniversityController::class);
     Route::resource('services', ServiceController::class);
@@ -41,6 +45,7 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::resource('settings', SettingController::class);
     Route::get('settings/change_lang/{lang}', [SettingController::class, 'changeLang'])->name('settings.changelang');
     Route::resource('memberships', MembershipController::class);
+    Route::post('discounts', [MembershipController::class,'discount'])->name('memberships.discounts');
     
     Route::get('user/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::put('user/profile/update', [UserController::class, 'updateUserProfile'])->name('user.profile.update');

@@ -2,14 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\Membership;
-use App\Repositories\MembershipRepository;
-class MembershipService
+use App\Models\Provider;
+use App\Repositories\ProviderRepository;
+
+class ProviderService
 {
+
     protected $repo;
-    public function __construct(Membership $repo)
+    public function __construct(Provider $repo)
     {
-        $this->repo = new MembershipRepository($repo);
+        $this->repo = new ProviderRepository($repo);
     }
 
     public function index()
@@ -35,8 +37,4 @@ class MembershipService
         return $this->repo->destroy($id);
     }
 
-    public function discount($request)
-    {
-        return $this->repo->discount($request);
-    }
 }

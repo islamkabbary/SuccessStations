@@ -38,7 +38,7 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('country_id', trans('admin.country')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('country_id', $country, old('country_id'), [
+                            {!! Form::select('country_id', $country , $data->country ?? old('country_id'), [
                             'class' => 'form-control',
                             'id' => 'country_id',
                             'placeholder' => trans('admin.country'),

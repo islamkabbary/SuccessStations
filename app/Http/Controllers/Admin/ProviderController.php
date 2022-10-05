@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\MembershipService;
+use App\Services\ProviderService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MembershipRequest;
+use App\Http\Requests\ProviderRequest;
 use App\Models\Country;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
-class MembershipController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +17,15 @@ class MembershipController extends Controller
      */
 
     protected $Service;
-    public function __construct(MembershipService $membershipsSer)
+    public function __construct(ProviderService $provider)
     {
-        $this->Service = $membershipsSer;
+        $this->Service = $provider;
     }
 
     public function index()
     {
-        return view('admin.memberships.index');
+        $providers = $this->Service->index();
+        return view('admin.providers.index' , compact( 'providers'));
     }
 
     /**
@@ -37,7 +37,7 @@ class MembershipController extends Controller
     {
         $countries = Country::all()->pluck('name', 'id');
         $services = Service::all()->pluck('name', 'id');
-        return view('admin.memberships.insert', compact('countries','services'));
+        return view('admin.providers.insert', compact('countries','services'));
     }
 
     /**
@@ -46,12 +46,13 @@ class MembershipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MembershipRequest $request)
+    public function store(ProviderRequest $request)
     {
-        $membership = $this->Service->store($request);
-        $membership->countries()->attach($request->country_id);
+        $provider = $this->Service->store($request);
+        $provider->countries()->attach($request->country_id);
+        $provider->services()->attach($request->service_id);
         session()->flash('success' , trans('admin.add-message'));
-        return redirect()->route('memberships.index');
+        return redirect()->route('providers.index');
     }
 
     /**
@@ -65,7 +66,7 @@ class MembershipController extends Controller
         $data = $this->Service->show($id);
         $countries = Country::all()->pluck('name', 'id');
         $services = Service::all()->pluck('name', 'id');
-        return view('admin.memberships.edit' , compact('data','countries','services'));
+        return view('admin.ads.edit' , compact('data','countries','services'));
     }
 
     /**
@@ -75,12 +76,13 @@ class MembershipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MembershipRequest $request, $id)
+    public function update(ProviderRequest $request, $id)
     {
-        $Ads = $this->Service->update($id , $request);
-        $Ads->countries()->sync($request->country_id, false);
+        $provider = $this->Service->update($id , $request);
+        $provider->countries()->sync($request->country_id, false);
+        $provider->services()->sync($request->service_id, false);
         session()->flash('success' , trans('admin.edit-message'));
-        return redirect()->route('memberships.index');
+        return redirect()->route('providers.index');
     }
 
     /**
@@ -93,18 +95,6 @@ class MembershipController extends Controller
     {
         $this->Service->destroy($id);
         session()->flash('success' , trans('admin.delete-message'));
-        return redirect()->route('memberships.index');
-    }
-
-    public function discount(Request $request)
-    {
-        $request->validate([
-            'discount' => 'required|numeric',
-            'start_date' => 'required|date|after:yesterday',
-            'end_date' => 'required|date|after:start_date',
-        ]);
-        $this->Service->discount($request);
-        session()->flash('success' , trans('admin.Discount_has_been_added'));
-        return redirect()->route('memberships.index');
+        return redirect()->route('providers.index');
     }
 }

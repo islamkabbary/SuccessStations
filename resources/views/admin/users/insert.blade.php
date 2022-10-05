@@ -82,7 +82,7 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('type', trans('admin.type')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('type', ['admin' => 'Admin', 'provider' => 'Provider'], $data->type ??
+                            {!! Form::select('type', ['admin' => 'Admin'], $data->type ??
                             old('type'), [
                             'class' => 'form-control',
                             'id' => 'type',
@@ -92,7 +92,7 @@
                         <div class="form-group col-md-6">
                             {!! Form::label('country', trans('admin.country')) !!}
                             <span class="asters">*</span>
-                            {!! Form::select('country', $country, old('country'), [
+                            {!! Form::select('country', $country, $data->country ?? old('country'), [
                             'class' => 'form-control',
                             'id' => 'country',
                             'placeholder' => trans('admin.country'),

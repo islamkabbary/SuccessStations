@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('memberships', function (Blueprint $table) {
+        Schema::create('provider_services', function (Blueprint $table) {
             $table->id();
-            $table->string('name_membership')->nullable();
+            $table->foreignId('provider_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('service_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->float('membership_value');
-            $table->enum('eligibility_type',['month','three_months','six_months','year']);
-            $table->boolean('off')->default(false);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('memberships');
+        Schema::dropIfExists('provider_services');
     }
 };

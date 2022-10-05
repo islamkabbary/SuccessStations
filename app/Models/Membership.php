@@ -41,4 +41,9 @@ class Membership extends Model
     {
         return $this->belongsToMany(Country::class, 'membership_countries');
     }
+
+    public function membershipDiscount(): HasMany
+    {
+        return $this->hasMany(MembershipDiscounts::class);
+    }
 }

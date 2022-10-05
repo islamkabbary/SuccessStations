@@ -30,6 +30,22 @@
                     </li>
                 @endif
 
+                <li>
+                    <a href="{{ route('students.index') }}" class="iq-waves-effect">
+                        <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
+                        <span> {{ trans('admin.students') }} </span>
+                    </a>
+                </li>
+
+                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
+                    <li>
+                        <a href="{{ route('providers.index') }}" class="iq-waves-effect">
+                            <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
+                            <span> {{ trans('admin.providers') }} </span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
                     <li>
                         <a href="{{ route('countries.index') }}" class="iq-waves-effect">
