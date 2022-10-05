@@ -92,64 +92,21 @@
                     </li>
                 @endif
 
+                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
+                    <li>
+                        <a href="{{ route('colleges.index') }}" class="iq-waves-effect">
+                            <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
+                            <span> {{ trans('admin.colleges') }} </span>
+                        </a>
+                    </li>
+                @endif
+
                 <li>
                     <a href="{{ route('settings.index') }}" class="iq-waves-effect">
                         <img src="{{ asset('assets/images/icons/settings.svg') }}" class="images-sidebar" />
                         <span> {{ trans('admin.settings') }} </span>
                     </a>
                 </li>
-
-                {{-- 
-                @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
-                    <li>
-                        <a href="{{ route('markets.index') }}" class="iq-waves-effect">
-                            <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                            <span> {{ trans('admin.market') }} </span>
-                        </a>
-                    </li>
-                @endif
-
-                @if (Auth::user()->type == 'company')
-                <li>
-                    <a href="{{ route('products.index') }}" class="iq-waves-effect">
-                        <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                        <span> {{ trans('admin.products') }} </span>
-                    </a>
-                </li>
-                @endif
-
-                @if (Auth::user()->type == 'company')
-                <li>
-                    <a href="{{ route('promo_codes.index') }}" class="iq-waves-effect">
-                        <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                        <span> {{ trans('admin.promo_codes') }} </span>
-                    </a>
-                </li>
-                @endif
-
-                @if (Auth::user()->type == 'company')
-                <li>
-                    <a href="{{ route('brands.index') }}" class="iq-waves-effect">
-                        <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                        <span> {{ trans('admin.brands') }} </span>
-                    </a>
-                </li>
-                @endif
-
-                @if (Auth::user()->type == 'company')
-                    <li>
-                        <a href="{{ route('orders.index') }}" class="iq-waves-effect">
-                            <img src="{{ asset('assets/images/icons/clients.svg') }}" class="images-sidebar" />
-                            <span> {{ trans('admin.orders') }} </span>
-                        </a>
-                    </li>
-                @endif
-                <li>
-                    <a href="{{ route('settings') }}" class="iq-waves-effect">
-                        <img src="{{ asset('assets/images/icons/settings.svg') }}" class="images-sidebar" />
-                        <span> {{ trans('admin.settings') }} </span>
-                    </a>
-                </li> --}}
             </ul>
         </nav>
         <div class="p-3"></div>

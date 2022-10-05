@@ -71,35 +71,6 @@ class AdsController extends Controller
         return view('admin.ads.show' , compact('data'));
     }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     $data = $this->Service->show($id);
-    //     // $cities = City::all()->pluck('name', 'id');
-    //     // $companies = Company::all()->pluck('name', 'id');
-    //     return view('admin.ads.edit' , compact('data','cities','companies'));
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(AdsRequest $request, $id)
-    // {
-    //     $Ads = $this->Service->update($id , $request);
-    //     $Ads->companies()->sync($request->company_id, false);
-    //     session()->flash('success' , trans('admin.edit-message'));
-    //     return redirect()->route('streets.index');
-    // }
-
     /**
      * Remove the specified resource from storage.
      *

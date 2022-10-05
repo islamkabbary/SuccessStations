@@ -331,5 +331,8 @@ return [
     'add-providers' => 'اضافة مزود خدمة',
     'edit-providers' => 'تعديل مزود خدمة',
     'edit-memberships' => 'تعديل العضوية',
-
+    'colleges' => 'الكليات',
+    'add-college' => 'اضافة الكلية',
+    'edit-college' => 'تعديل الكلية ',
+    'colleges-info' => 'بيانات الكلية ',
 ];

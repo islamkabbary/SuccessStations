@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdsController;
+use App\Http\Controllers\Admin\CollegeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -43,23 +44,12 @@ Route::group(['middleware' => ['lang', 'auth']], function () {
     Route::resource('services', ServiceController::class);
     Route::resource('ads', AdsController::class);
     Route::resource('settings', SettingController::class);
+    Route::resource('colleges', CollegeController::class);
     Route::get('settings/change_lang/{lang}', [SettingController::class, 'changeLang'])->name('settings.changelang');
     Route::resource('memberships', MembershipController::class);
     Route::post('discounts', [MembershipController::class,'discount'])->name('memberships.discounts');
-    
     Route::get('user/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::put('user/profile/update', [UserController::class, 'updateUserProfile'])->name('user.profile.update');
     Route::get('update/password', [UserController::class, 'updatePasswordView'])->name('update.password');
     Route::post('update/password/post', [UserController::class, 'updatePassword'])->name('update.password.post');
-
-    // Route::resource('cities', CityController::class);
-    // Route::resource('markets', MarketController::class);
-    // Route::resource('products', ProductController::class);
-    // Route::resource('promo_codes', PromoCodeController::class);
-    // Route::resource('brands', BrandController::class);
-    // Route::resource('orders', OrderController::class);
-    // Route::get('orders/pdf/{id}', [OrderController::class, 'pdf'])->name('orders.pdf');
-    // Route::post('change/status/users/{id}', [UserController::class, 'changeStatus'])->name('users.changeStatus');
-
-    Route::resource('notifications', NotificationController::class, ['except' => ['edit', 'update']]);
 });
